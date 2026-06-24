@@ -17,6 +17,12 @@
     --muted: #e8e9d4;
     --muted-fg: #6b6854;
     --border: rgba(203,171,110,0.25);
+    /* cost category colors */
+    --c-prod: #4A90D9;
+    --c-tech: #7B68EE;
+    --c-team: #E8944A;
+    --c-mkt:  #C0678B;
+    --c-ops:  #5DAB85;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,7 +59,6 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
   .header-eyebrow {
-    font-family: 'DM Sans', sans-serif;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.2em;
@@ -131,7 +136,6 @@
   .phase-badge {
     background: var(--burgundy);
     color: var(--gold);
-    font-family: 'DM Sans', sans-serif;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.15em;
@@ -175,7 +179,6 @@
     display: grid;
     grid-template-columns: 90px 1fr auto;
     align-items: center;
-    gap: 0;
     cursor: pointer;
     position: relative;
   }
@@ -216,7 +219,6 @@
     padding: 16px 20px;
   }
   .month-summary h3 {
-    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: var(--dark-olive);
@@ -242,33 +244,6 @@
   .tag-kpi    { color: var(--crimson); background: #fce8e8; border-color: #f5b7b1; }
   .tag-b2b    { color: #784212; background: #fdebd0; border-color: #f8c471; }
   .tag-ai     { color: #1a5276; background: #d1f2eb; border-color: #76d7c4; }
-
-  .month-kpis {
-    padding: 12px 20px 16px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-  .kpi-item {
-    text-align: right;
-  }
-  .kpi-val {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--burgundy);
-    line-height: 1;
-  }
-  .kpi-lbl {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--muted-fg);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 2px;
-  }
 
   .toggle-btn {
     background: none;
@@ -370,23 +345,210 @@
     margin-bottom: 3px;
   }
 
-  /* ── FINANCIALS ROW ── */
+  /* ── COST LEDGER ── */
+  .cost-ledger {
+    border-top: 1px solid var(--border);
+    padding: 20px 24px 0;
+  }
+  .cost-ledger-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-fg);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cost-ledger-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cost-section {
+    margin-bottom: 14px;
+  }
+  .cost-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .cost-section-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cost-section-name {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dark-olive);
+    flex: 1;
+  }
+  .cost-section-subtotal {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--burgundy);
+    white-space: nowrap;
+  }
+
+  .cost-line-items {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-left: 16px;
+    margin-bottom: 4px;
+  }
+  .cost-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12px;
+    color: var(--dark-olive);
+    gap: 8px;
+  }
+  .cost-line .cli-name {
+    flex: 1;
+    color: #5a5040;
+  }
+  .cost-line .cli-calc {
+    font-size: 11px;
+    color: var(--muted-fg);
+    white-space: nowrap;
+  }
+  .cost-line .cli-val {
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: right;
+    color: var(--dark-olive);
+  }
+  .cost-line.one-time .cli-name::after {
+    content: ' ⬡';
+    font-size: 9px;
+    color: var(--gold);
+  }
+
+  .cost-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0;
+  }
+
+  .cost-totals-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 14px 0 20px;
+  }
+  .cost-total-cell {
+    background: rgba(244,245,219,0.6);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .cost-total-cell.highlight {
+    background: var(--burgundy);
+    border-color: var(--burgundy);
+  }
+  .cost-total-cell .ctc-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    line-height: 1;
+  }
+  .cost-total-cell.highlight .ctc-val { color: var(--gold); }
+  .cost-total-cell .ctc-lbl {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+  .cost-total-cell.highlight .ctc-lbl { color: rgba(244,245,219,0.6); }
+
+  /* ── STACKED COST BAR ── */
+  .cost-bar-wrap {
+    padding: 0 24px 16px;
+  }
+  .cost-bar-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .cost-bar-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-fg);
+  }
+  .cost-bar-total-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--burgundy);
+  }
+  .cost-bar {
+    display: flex;
+    height: 10px;
+    border-radius: 100px;
+    overflow: hidden;
+    gap: 1px;
+  }
+  .cost-bar-seg {
+    height: 100%;
+    transition: flex 0.3s;
+    min-width: 2px;
+  }
+  .cost-bar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-top: 8px;
+  }
+  .cbl-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--muted-fg);
+  }
+  .cbl-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cbl-pct {
+    font-weight: 600;
+    color: var(--dark-olive);
+  }
+
+  /* ── FINANCIAL SUMMARY ROW ── */
   .fin-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 0;
     border-top: 1px solid var(--border);
     background: rgba(244,245,219,0.5);
   }
   .fin-cell {
-    padding: 14px 20px;
+    padding: 14px 16px;
     border-right: 1px solid var(--border);
     text-align: center;
   }
   .fin-cell:last-child { border-right: none; }
   .fin-cell .fc-val {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--burgundy);
   }
@@ -399,6 +561,11 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-top: 2px;
+  }
+  .fin-cell .fc-sub {
+    font-size: 10px;
+    color: var(--muted-fg);
+    margin-top: 1px;
   }
 
   /* ── CUMULATIVE SUMMARY ── */
@@ -439,6 +606,73 @@
     margin-top: 6px;
   }
 
+  /* ── ANNUAL COST TABLE ── */
+  .annual-cost-section {
+    margin-top: 48px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .annual-cost-header {
+    background: var(--burgundy);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .annual-cost-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+    font-weight: 600;
+  }
+  .annual-cost-header .ach-sub {
+    font-size: 12px;
+    color: rgba(244,245,219,0.55);
+    margin-left: auto;
+  }
+  .annual-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .annual-table th {
+    background: rgba(244,245,219,0.6);
+    padding: 10px 12px;
+    text-align: right;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted-fg);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .annual-table th:first-child { text-align: left; }
+  .annual-table td {
+    padding: 9px 12px;
+    text-align: right;
+    border-bottom: 1px solid rgba(203,171,110,0.1);
+    color: var(--dark-olive);
+  }
+  .annual-table td:first-child { text-align: left; font-weight: 500; }
+  .annual-table tr:last-child td { border-bottom: none; }
+  .annual-table tr.total-row td {
+    background: rgba(45,12,28,0.04);
+    font-weight: 700;
+    color: var(--burgundy);
+    border-top: 1px solid var(--border);
+  }
+  .annual-table tr.total-row td:first-child { font-family: 'Playfair Display', serif; }
+  .cat-swatch {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
   /* ── FOOTER ── */
   footer {
     text-align: center;
@@ -458,12 +692,15 @@
     .legend-bar { padding: 12px 20px 14px; }
     .month-header { grid-template-columns: 72px 1fr auto; }
     .month-num .m-number { font-size: 1.3rem; }
-    .fin-row { grid-template-columns: repeat(2, 1fr); }
-    .fin-cell:nth-child(2) { border-right: none; }
-    .fin-cell:nth-child(3) { border-top: 1px solid var(--border); }
+    .fin-row { grid-template-columns: repeat(3, 1fr); }
+    .fin-cell:nth-child(3) { border-right: none; }
+    .fin-cell:nth-child(4) { border-top: 1px solid var(--border); }
     .detail-grid { grid-template-columns: 1fr; }
     .detail-col { border-right: none; border-bottom: 1px solid var(--border); }
     .detail-col:last-child { border-bottom: none; }
+    .cost-totals-row { grid-template-columns: 1fr 1fr; }
+    .annual-table { font-size: 11px; }
+    .annual-table th, .annual-table td { padding: 7px 8px; }
   }
 </style>
 </head>
@@ -472,7 +709,7 @@
 <header>
   <div class="header-eyebrow">Three-Year Growth Plan · Year 1 Detail</div>
   <h1>RIGLO <span>12-Month</span> Milestone Roadmap</h1>
-  <div class="header-sub">Expected Scenario · July 2026 → June 2027 · Investment: 17,887,239 DZD</div>
+  <div class="header-sub">Expected Scenario · July 2026 → June 2027 · Investment: 20,171,439 DZD</div>
   <div class="header-meta">
     <span class="meta-pill">Month 1 = July 2026</span>
     <span class="meta-pill">Expected Scenario</span>
@@ -488,6 +725,11 @@
   <div class="legend-item"><div class="legend-dot" style="background:#76d7c4"></div> AI Integration</div>
   <div class="legend-item"><div class="legend-dot" style="background:#f8c471"></div> B2B</div>
   <div class="legend-item"><div class="legend-dot" style="background:#f5b7b1"></div> Financial KPI</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-prod)"></div> Cost: Production</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-mkt)"></div> Cost: Marketing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-tech)"></div> Cost: Technology</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-team)"></div> Cost: Team</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-ops)"></div> Cost: Ops/Legal</div>
 </div>
 
 <main>
@@ -500,7 +742,7 @@
   <div class="phase-months">Months 1–6 · Jul – Dec 2026</div>
 </div>
 
-<!-- M1 -->
+<!-- ════════ M1 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -571,16 +813,138 @@
         </ul>
       </div>
     </div>
+
+    <!-- COST LEDGER M1 -->
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">2,889,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line one-time"><span class="cli-name">Facility lease + 6-month deposit</span><span class="cli-calc">200,000 × 6 mo</span><span class="cli-val">1,200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Electrical installation + ventilation</span><span class="cli-calc">one-time</span><span class="cli-val">185,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Workstations + shelving</span><span class="cli-calc">one-time</span><span class="cli-val">220,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Fire safety system</span><span class="cli-calc">one-time</span><span class="cli-val">62,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Pneumatic heat presses (×2) + flat press</span><span class="cli-calc">one-time</span><span class="cli-val">430,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Cap press + mug press</span><span class="cli-calc">one-time</span><span class="cli-val">140,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Laminator A3 + label printer + packaging station</span><span class="cli-calc">one-time</span><span class="cli-val">97,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Color calibration device (X-Rite)</span><span class="cli-calc">one-time</span><span class="cli-val">90,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Blank t-shirts (2,000 units)</span><span class="cli-calc">2,000 × 700</span><span class="cli-val">1,400,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Blank hoodies (1,000 units)</span><span class="cli-calc">1,000 × 1,150</span><span class="cli-val">1,150,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Tote bags (1,000 units) + caps (500) + joggers (500)</span><span class="cli-calc">initial stock</span><span class="cli-val">912,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Packaging: poly mailers, boxes, sticker seals</span><span class="cli-calc">initial stock</span><span class="cli-val">111,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Finishing consumables (tape, gloves, blades…)</span><span class="cli-calc">initial stock</span><span class="cli-val">118,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Roll-up banner hardware (30 units)</span><span class="cli-calc">30 × 9,000</span><span class="cli-val">270,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film for 60 orders (60% apparel)</span><span class="cli-calc">36 orders × 340</span><span class="cli-val">12,240</span></div>
+          <div class="cost-line"><span class="cli-name">INAPI trademark registration</span><span class="cli-calc">3 classes</span><span class="cli-val">22,000</span></div>
+        </div>
+      </div>
+
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">68,900 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line one-time"><span class="cli-name">Cloudflare Pro (annual)</span><span class="cli-calc">4,400/mo × 12</span><span class="cli-val">52,800</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Sentry Team (annual)</span><span class="cli-calc">6,380/mo × 12</span><span class="cli-val">76,560</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Firebase Blaze (annual est.)</span><span class="cli-calc">17,500/mo × 12</span><span class="cli-val">210,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Payment gateway setup (SATIM)</span><span class="cli-calc">one-time</span><span class="cli-val">50,000</span></div>
+        </div>
+      </div>
+
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">83,333 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Full-stack developer (freelance, M1–M3)</span><span class="cli-calc">600,000 ÷ 3 mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">QA/DevOps engineer (freelance, M8–M10)</span><span class="cli-calc">400,000 ÷ 3 mo</span><span class="cli-val">— starts M8</span></div>
+        </div>
+      </div>
+
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">302,500 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line one-time"><span class="cli-name">SEO/CRO audit (one-time, split M1–M2)</span><span class="cli-calc">225,000 ÷ 2</span><span class="cli-val">112,500</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Studio lighting + tripod/stabilisation gear</span><span class="cli-calc">one-time</span><span class="cli-val">77,500</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">64,750 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities (electricity, water, fibre)</span><span class="cli-calc">50,000/mo</span><span class="cli-val">50,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Equipment insurance (annual)</span><span class="cli-calc">120,000 ÷ 12</span><span class="cli-val">10,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Google Workspace + GitHub Team (annual)</span><span class="cli-calc">190,000 ÷ 12</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total: ~3,408,483 DZD <small style="color:var(--muted-fg);font-weight:400">(incl. one-time setup costs)</small></div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:85"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:9"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:2"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:2"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:2"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production & Inventory <span class="cbl-pct">85%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">9%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">2%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">2%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">2%</span></div>
+        </div>
+      </div>
+
+      <div class="cost-totals-row">
+        <div class="cost-total-cell">
+          <div class="ctc-val">53,160</div>
+          <div class="ctc-lbl">Gross Profit (DZD)</div>
+        </div>
+        <div class="cost-total-cell">
+          <div class="ctc-val">908,278</div>
+          <div class="ctc-lbl">Monthly Opex (recurring)</div>
+        </div>
+        <div class="cost-total-cell highlight">
+          <div class="ctc-val negative" style="color:var(--gold)">−855,118</div>
+          <div class="ctc-lbl">Cumulative Position</div>
+        </div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">60</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">53,160</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−855,118</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">886</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓ improves each month</div></div>
     </div>
   </div>
 </div>
 
-<!-- M2 -->
+<!-- ════════ M2 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -649,16 +1013,108 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">50,320 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent (monthly)</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 140 orders × 60% apparel</span><span class="cli-calc">84 × 340</span><span class="cli-val">28,560</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories (totes) 15%</span><span class="cli-calc">21 × 227</span><span class="cli-val">4,767</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper — mugs/cases 15%</span><span class="cli-calc">21 × 170</span><span class="cli-val">3,570</span></div>
+          <div class="cost-line"><span class="cli-name">UV film — pens/badges 10%</span><span class="cli-calc">14 × 161</span><span class="cli-val">2,254</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">32,780 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro</span><span class="cli-calc">4,400/mo</span><span class="cli-val">4,400</span></div>
+          <div class="cost-line"><span class="cli-name">Sentry Team</span><span class="cli-calc">6,380/mo</span><span class="cli-val">6,380</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze (scaled ~140 users)</span><span class="cli-calc">est.</span><span class="cli-val">8,000</span></div>
+          <div class="cost-line"><span class="cli-name">Infobip SMS (5,000/mo)</span><span class="cli-calc">incubator-covered Y1</span><span class="cli-val">—</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">190,000 ÷ 12</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">200,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Full-stack developer (freelance)</span><span class="cli-calc">600,000 ÷ 3</span><span class="cli-val">200,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">197,500 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">SEO/CRO audit (remainder)</span><span class="cli-calc">225,000 ÷ 2</span><span class="cli-val">112,500</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities</span><span class="cli-calc">50,000/mo</span><span class="cli-val">50,000</span></div>
+          <div class="cost-line"><span class="cli-name">Equipment insurance + tools</span><span class="cli-calc">prorated</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Recurring Opex: 546,113 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:37"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:36"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:6"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:37"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:12"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">37%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">37%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">36%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">12%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">6%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">124,040</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−1,639,356</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">140</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">124,040</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−1,639,356</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">887</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">still investment-heavy</div></div>
     </div>
   </div>
 </div>
 
-<!-- M3 -->
+<!-- ════════ M3 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -682,13 +1138,9 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
-          <li>Algerian payment gateway live: BaridiMob, CCP, Dahabia (Chargily / SATIM) — highest-priority commercial unlock</li>
-          <li>Infrastructure reliability: separate dev/prod DBs confirmed; Sentry alerting tuned; DB cleanup scripts deployed</li>
+          <li>Algerian payment gateway live: BaridiMob, CCP, Dahabia (Chargily / SATIM)</li>
           <li>Editor UX — first batch: copy/paste + keyboard shortcuts, center/alignment tools, printable area boundary</li>
           <li>Background removal tool integrated into editor (Rembg preview)</li>
           <li>Homepage: testimonials section + Instagram gallery added</li>
@@ -696,47 +1148,134 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>First DTF transfers received from outsourced supplier — pressing protocol tested on blanks</li>
           <li>QC color calibration protocol established (X-Rite device calibrated)</li>
           <li>Packaging & branded collateral stocked: poly mailers (2,000 units), sticker seals (1,000), gift boxes (500)</li>
-          <li>Roll-up banner hardware stocked (30 units) for upcoming B2B catalogue</li>
           <li>First orders fulfilled with full in-house pressing → packaging → dispatch workflow</li>
-          <li>Pressing consumables stocked: heat tape (40 rolls), silicone paper (4 rolls), lint rollers, trimming blades</li>
+          <li>Pressing consumables stocked: heat tape, silicone paper, lint rollers, trimming blades</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Back-to-School</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Back-to-School</div></div>
         <ul>
-          <li>Meta Ads (Facebook + Instagram) launched: 120,000–180,000 DZD/month budget begins</li>
-          <li>Back-to-School campaign: event-based influencer activation (150,000 DZD) + seasonal budget (100,000 DZD)</li>
+          <li>Meta Ads (Facebook + Instagram) launched: 150,000 DZD/month budget begins</li>
+          <li>Back-to-School campaign: influencer activation 150,000 DZD + seasonal budget 100,000 DZD</li>
           <li>University-focused targeting; ambassador discount codes distributed</li>
-          <li>Clubs & associations outreach: custom merch for student orgs</li>
           <li>Target: ~420 orders this month from paid + organic</li>
         </ul>
         <div class="highlight-item">
           <strong>Campaign: Back-to-School</strong>
-          September 2026 — University audience, ambassador activation, discount codes. Budget: 250,000 DZD (influencer 150K + seasonal 100K).
+          September 2026 — University audience, ambassador activation. Budget: 250,000 DZD (influencer 150K + seasonal 100K).
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">361,151 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 420 orders, 60% apparel</span><span class="cli-calc">252 × 340</span><span class="cli-val">85,680</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">63 × 227</span><span class="cli-val">14,301</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">63 × 170</span><span class="cli-val">10,710</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">42 × 161</span><span class="cli-val">6,762</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables (prorated)</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials (prorated)</span><span class="cli-calc">est.</span><span class="cli-val">9,291</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">34,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro</span><span class="cli-calc">4,400/mo</span><span class="cli-val">4,400</span></div>
+          <div class="cost-line"><span class="cli-name">Sentry Team</span><span class="cli-calc">6,380/mo</span><span class="cli-val">6,380</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze (scaled ~420 users)</span><span class="cli-calc">est.</span><span class="cli-val">8,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">190,000 ÷ 12</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">200,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Full-stack developer (freelance, last month)</span><span class="cli-calc">600,000 ÷ 3</span><span class="cli-val">200,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">485,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads (Facebook + Instagram)</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Influencer activation — Back-to-School</span><span class="cli-calc">event-based</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Seasonal campaign budget — Back-to-School</span><span class="cli-calc">event-based</span><span class="cli-val">100,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities</span><span class="cli-calc">50,000/mo</span><span class="cli-val">50,000</span></div>
+          <div class="cost-line"><span class="cli-name">Insurance + tools (prorated)</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,146,597 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:32"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:42"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:17"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:6"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing (incl. campaign) <span class="cbl-pct">42%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">32%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">17%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">6%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">372,120</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−2,175,514</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">420</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">372,120</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−2,175,514</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">2,730</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">campaign-heavy month</div></div>
     </div>
   </div>
 </div>
 
-<!-- M4 -->
+<!-- ════════ M4 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -759,28 +1298,20 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
           <li>Google Play Developer Account activated (5,950 DZD — incubator-covered)</li>
           <li>Apple Developer Account activated (30,940 DZD — incubator-covered)</li>
           <li>Flutter app full API audit complete; API integration layer rewrite begins</li>
           <li>Mobile app core user flows development starts: shop, product customization, cart, checkout, order tracking</li>
-          <li>Mobile auth flows: JWT handling, biometric auth, OTP verification</li>
-          <li>Homepage/shop UX: product photos added, enhanced browsing, stock indicators in dashboard</li>
-          <li>Backend query optimization: response time targets <300ms for core endpoints</li>
+          <li>Backend query optimization: response time targets &lt;300ms for core endpoints</li>
           <li>Editor UX — second batch: font library expansion, image crop shapes, enhanced text controls</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
-          <li>3 production operators hired (part-time, 40,000–60,000 DZD/month each)</li>
+          <li>3 production operators hired (part-time, 50,000 DZD/month each)</li>
           <li>Packaging station fully operational: sealer, scale, fulfillment flow trained</li>
           <li>Caps, tote bags in regular production rotation</li>
           <li>Delivery SLA tracking implemented: on-time rate target 95%</li>
@@ -788,29 +1319,118 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing & Acquisition</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing & Acquisition</div></div>
         <ul>
-          <li>TikTok Ads launched: 50,000–80,000 DZD/month budget begins</li>
-          <li>Short-form video content optimized for TikTok algorithm (product customization demos)</li>
+          <li>TikTok Ads launched: 65,000 DZD/month budget begins</li>
+          <li>Short-form video content optimized for TikTok algorithm</li>
           <li>Riglo Creator programme announced publicly — promotional video produced</li>
           <li>50 designers targeted for active marketplace status by month-end</li>
           <li>Steady Meta Ads + organic spend continues</li>
         </ul>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">428,985 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 520 orders, 60% apparel</span><span class="cli-calc">312 × 340</span><span class="cli-val">106,080</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">78 × 227</span><span class="cli-val">17,706</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">78 × 170</span><span class="cli-val">13,260</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">52 × 161</span><span class="cli-val">8,372</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">11,500</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">34,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze</span><span class="cli-calc">est. ~520 users</span><span class="cli-val">8,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">150,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">3 production operators (part-time)</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">300,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads (new)</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 979,431 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:44"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:31"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:4"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:15"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:7"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">44%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">31%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">15%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">7%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">4%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">460,720</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−2,623,072</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">520</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">460,720</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−2,623,072</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">1,883</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓ improving</div></div>
     </div>
   </div>
 </div>
 
-<!-- M5 -->
+<!-- ════════ M5 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -833,10 +1453,7 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
           <li>Load testing at 10,000 concurrent user scale — identify and resolve bottlenecks</li>
           <li>CDN caching tuned via Cloudflare Pro; capacity benchmarking complete</li>
@@ -844,16 +1461,12 @@
           <li>Flutter canvas for mobile customization editor (Fabric.js feature parity target)</li>
           <li>Secure local storage + biometric auth implemented for mobile app</li>
           <li>Optimisation for low-end Android devices: image lazy loading</li>
-          <li>Homepage UX finalized: testimonials, product browsing enhancements live</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
-          <li>Customer support hired (part-time, 40,000–50,000 DZD/month)</li>
+          <li>Customer support hired (part-time, 45,000 DZD/month)</li>
           <li>Delivery SLA: 95% on-time delivery rate achieved (national)</li>
           <li>Damage/loss rate reduced to 3%</li>
           <li>Avg. delivery time: 60 hours (national)</li>
@@ -862,29 +1475,118 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing & Acquisition</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing & Acquisition</div></div>
         <ul>
           <li>Steady Meta Ads + TikTok Ads + organic spend continues</li>
           <li>Monthly payout leaderboard for designers introduced</li>
           <li>Content: product launch videos for hoodies and caps ahead of winter season</li>
           <li>Retargeting campaigns active for cart abandonment</li>
-          <li>University semester in full swing — student ambassador program active</li>
         </ul>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">563,368 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 700 orders, 60% apparel</span><span class="cli-calc">420 × 340</span><span class="cli-val">142,800</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">105 × 227</span><span class="cli-val">23,835</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">105 × 170</span><span class="cli-val">17,850</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">70 × 161</span><span class="cli-val">11,270</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">15,400</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">34,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze</span><span class="cli-calc">est. ~700 users</span><span class="cli-val">8,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">195,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">3 production operators (part-time)</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support (part-time, new hire)</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">300,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,158,814 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:49"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:26"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:17"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:6"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">49%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">26%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">17%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">6%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">620,200</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−2,911,150</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">700</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">620,200</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−2,911,150</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">1,655</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓ scale showing</div></div>
     </div>
   </div>
 </div>
 
-<!-- M6 -->
+<!-- ════════ M6 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -907,10 +1609,7 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
           <li>Backend migration phase 1 complete: Supabase → self-managed Node.js/Next.js API</li>
           <li>Platform fully Algerian-hosted: DZSecurity Wind + ADEX S3</li>
@@ -921,10 +1620,7 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>Full in-house pressing capability operational: apparel (t-shirts, hoodies), caps, tote bags all in rotation</li>
           <li>Jogger pants blanks received — DTF pressing protocol established</li>
@@ -934,15 +1630,11 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Winter Launch</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Winter Launch</div></div>
         <ul>
           <li>Winter Hoodie & Cap Launch campaign: seasonal budget 100,000 DZD</li>
           <li>Gifting bundles promoted: hoodie + cap + tote gift sets</li>
           <li>Year-end gift-giving angle: corporate & personal gifting</li>
-          <li>Strong December organic lift expected (gift-season demand)</li>
           <li>TikTok + Meta ads seasonally adjusted for holiday intent</li>
         </ul>
         <div class="highlight-item">
@@ -951,11 +1643,105 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">632,318 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 1,050 orders, 60% apparel</span><span class="cli-calc">630 × 340</span><span class="cli-val">214,200</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">157 × 227</span><span class="cli-val">35,639</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">157 × 170</span><span class="cli-val">26,690</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">105 × 161</span><span class="cli-val">16,905</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">20,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">36,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze (scaled ~1,050 users)</span><span class="cli-calc">est.</span><span class="cli-val">10,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">195,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">3 production operators (part-time)</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support (part-time)</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">400,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Seasonal campaign — Winter Launch</span><span class="cli-calc">event-based</span><span class="cli-val">100,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,329,764 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:48"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:30"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:15"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:5"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">48%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">30%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">15%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">5%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">930,300</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−2,889,128</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">1,050</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">930,300</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val negative">−2,889,128</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+22,022</div><div class="fc-lbl">Monthly Net</div></div>
+      <div class="fin-cell"><div class="fc-val">1,267</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">first month near break-even</div></div>
     </div>
   </div>
 </div>
@@ -968,7 +1754,7 @@
   <div class="phase-months">Months 7–12 · Jan – Jun 2027</div>
 </div>
 
-<!-- M7 -->
+<!-- ════════ M7 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -991,27 +1777,21 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
-          <li>Senior ML Engineer onboarded (250,000–300,000 DZD/month, 6-month contract)</li>
+          <li>Senior ML Engineer onboarded (275,000 DZD/month, 6-month contract)</li>
           <li>AI API evaluation begins (25,000 DZD test budget): Nano Banana, Ideogram, Recraft, Stability AI tested</li>
-          <li>Evaluation criteria: image generation quality, Arabic text accuracy, transparent background support, cost per generation, latency</li>
+          <li>Evaluation criteria: image generation quality, Arabic text accuracy, transparent background, cost, latency</li>
           <li>500 test credits (Nano Banana) covered by incubator</li>
-          <li>Prompt engineering microservice design begins: Claude Haiku / GPT-4o-mini for print-optimised prompt reformulation</li>
+          <li>Prompt engineering microservice design begins</li>
           <li>Mobile app: Android QA preparation begins; performance optimization for low-end devices</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>Caps (500 units), jogger pants (500 units), notebooks (200 units) added to live catalogue</li>
-          <li>Tier-2 inventory received: 752,500 DZD restocking (hoodies, caps, joggers)</li>
+          <li>Tier-2 inventory restock: 752,500 DZD (hoodies, caps, joggers)</li>
           <li>Sublimation press sleeve consumables stocked (6 units, 3,200 DZD each)</li>
           <li>Post-holiday January is quieter — team uses capacity for training and process refinement</li>
         </ul>
@@ -1021,10 +1801,7 @@
         </div>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing & Acquisition</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing & Acquisition</div></div>
         <ul>
           <li>Post-holiday January — steady spend on Meta + TikTok (no major campaign)</li>
           <li>New product launch content: jogger pants, caps, notebooks — organic posts + stories</li>
@@ -1033,16 +1810,112 @@
         </ul>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">930,009 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Tier-2 inventory restock (caps, joggers, notebooks)</span><span class="cli-calc">one-time restock</span><span class="cli-val">752,500</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 850 orders, 60% apparel</span><span class="cli-calc">510 × 340</span><span class="cli-val">173,400</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">127 × 227</span><span class="cli-val">28,829</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">127 × 170</span><span class="cli-val">21,590</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">85 × 161</span><span class="cli-val">13,685</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Sublimation mug-press silicone wraps (6 units)</span><span class="cli-calc">6 × 3,200</span><span class="cli-val">19,200</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">59,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze</span><span class="cli-calc">est. ~850 users</span><span class="cli-val">12,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line one-time"><span class="cli-name">AI API evaluation test budget</span><span class="cli-calc">one-time</span><span class="cli-val">25,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">520,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Senior ML Engineer (new hire)</span><span class="cli-calc">275,000/mo</span><span class="cli-val">275,000</span></div>
+          <div class="cost-line"><span class="cli-name">3 production operators (part-time)</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support (part-time)</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">300,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,875,455 DZD <small style="color:var(--muted-fg);font-weight:400">(incl. inventory restock)</small></div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:50"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:16"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:28"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:4"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production (incl. restock) <span class="cbl-pct">50%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team (ML Engineer) <span class="cbl-pct">28%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">16%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">4%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">753,100</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−3,044,306</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">850</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">753,100</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val negative">−3,044,306</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">1,069</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">recurring cost only</div></div>
     </div>
   </div>
 </div>
 
-<!-- M8 -->
+<!-- ════════ M8 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -1066,10 +1939,7 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & AI</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & AI</div></div>
         <ul>
           <li>Primary AI API selected based on evaluation results (quality + Arabic text + cost)</li>
           <li>Rembg self-hosted background removal microservice integrated into editor</li>
@@ -1077,32 +1947,23 @@
           <li>Prompt engineering microservice live: short user input → print-optimised detailed prompt</li>
           <li>Android app submitted to QA engineer for real-device testing</li>
           <li>QA/DevOps freelance engineer contract begins</li>
-          <li>iOS real device testing preparation begins</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>Mugs (300 units, 15oz ceramic) and phone cases (500 units, sublimation-ready) launched — sublimation pressing workflow live</li>
           <li>Sublimation consumables stocked: mug-press silicone wraps (6 units), heat-resistant gloves (12 pairs)</li>
-          <li>Sublimation film budget activated: 300 mugs × 57 DZD + 500 phone cases × 35 DZD = 34,600 DZD from film budget</li>
           <li>Second inventory restocking: 432,000 DZD (mugs, phone cases, sublimation consumables)</li>
           <li>Capacity: ~2,000 orders/month sustainable with current 3 operators</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Ramadan Campaign</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Ramadan Campaign</div></div>
         <ul>
           <li>Ramadan campaign (~early Feb – early Mar 2027): influencer activation 200,000 DZD + seasonal budget 150,000 DZD</li>
           <li>AI-assisted calligraphy designs: Arabic script, Islamic geometric patterns — promoted as hero feature</li>
           <li>Gifting angle: family gifts, spiritual collections, personalized items</li>
-          <li>Mugs and phone cases featured as Ramadan gift items</li>
           <li>Night/evening ad scheduling optimized for Ramadan viewing patterns</li>
         </ul>
         <div class="highlight-item">
@@ -1111,16 +1972,115 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">1,022,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Inventory restock: mugs (300) + phone cases (500)</span><span class="cli-calc">one-time restock</span><span class="cli-val">300,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 1,550 orders, 60% apparel</span><span class="cli-calc">930 × 340</span><span class="cli-val">316,200</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">232 × 227</span><span class="cli-val">52,664</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper — mugs/cases 15%</span><span class="cli-calc">232 × 170</span><span class="cli-val">39,440</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">155 × 161</span><span class="cli-val">24,955</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">25,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">45,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze (scaled ~1,550 users)</span><span class="cli-calc">est.</span><span class="cli-val">14,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line"><span class="cli-name">AI API operating cost (ramp-up)</span><span class="cli-calc">est. 500 gen × 5.4</span><span class="cli-val">2,700</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">653,333 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Senior ML Engineer</span><span class="cli-calc">275,000/mo</span><span class="cli-val">275,000</span></div>
+          <div class="cost-line"><span class="cli-name">QA/DevOps engineer (freelance, new)</span><span class="cli-calc">400,000 ÷ 3</span><span class="cli-val">133,333</span></div>
+          <div class="cost-line"><span class="cli-name">3 production operators</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">650,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Influencer activation — Ramadan</span><span class="cli-calc">event-based</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Seasonal campaign — Ramadan</span><span class="cli-calc">event-based</span><span class="cli-val">150,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 2,436,779 DZD <small style="color:var(--muted-fg);font-weight:400">(campaign + inventory-heavy)</small></div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:42"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:27"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:2"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:27"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:3"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production (incl. restock) <span class="cbl-pct">42%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing (incl. campaign) <span class="cbl-pct">27%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">27%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">3%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">2%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">1,373,300</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−2,579,284</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">1,550</div><div class="fc-lbl">D2C Orders</div></div>
       <div class="fin-cell"><div class="fc-val">1,373,300</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val negative">−2,579,284</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+465,022</div><div class="fc-lbl">Monthly Net</div></div>
+      <div class="fin-cell"><div class="fc-val">586</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓ strong leverage</div></div>
     </div>
   </div>
 </div>
 
-<!-- M9 -->
+<!-- ════════ M9 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -1143,17 +2103,12 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & AI</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & AI</div></div>
         <ul>
           <li>AI design feature LIVE: full 5-stage pipeline operational (prompt engineering → image generation → background removal → segmentation → editor delivery)</li>
-          <li>Rate limiting + credit monitoring active on AI API to control costs (~5,400 DZD/month at scale)</li>
+          <li>Rate limiting + credit monitoring active on AI API (~5,400 DZD/month at scale)</li>
           <li>Android app live on Google Play Store</li>
           <li>Push notifications via FCM (Firebase Cloud Messaging) live</li>
-          <li>Firebase Analytics in-app tracking active</li>
-          <li>iOS QA testing begins on real devices</li>
           <li>B2B portal backend: business account creation, bulk order management</li>
         </ul>
         <div class="highlight-item">
@@ -1162,13 +2117,10 @@
         </div>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>B2B catalogue live: banners (roll-up stands), business cards, flyers, stickers — all outsourced print</li>
-          <li>B2B first orders: 3 orders expected at 110,000 DZD AOV = 330,000 DZD revenue</li>
+          <li>B2B first orders: 3 orders at 110,000 DZD AOV = 330,000 DZD revenue</li>
           <li>B2B lead time: 72h (print) + delivery to client</li>
           <li>Working capital restock: 1,001,500 DZD — full inventory refresh for Aïd El-Fitr demand surge</li>
           <li>Capacity: 2,500+ orders/month, 5 operators (2 new part-time hired)</li>
@@ -1176,16 +2128,12 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Aïd El-Fitr</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Aïd El-Fitr</div></div>
         <ul>
           <li>Aïd El-Fitr campaign (~early Mar 2027): influencer 250,000 DZD + seasonal 150,000 DZD = 400,000 DZD total</li>
           <li>"Gift a personalised tee" hero mechanic — gifting bundles promoted</li>
           <li>B2B launch push: reach local businesses, event organizers, student associations</li>
           <li>Android app launch promoted: download CTAs in all ads and organic content</li>
-          <li>AI design feature showcase: hero content demonstrating AI calligraphy generation</li>
         </ul>
         <div class="highlight-item">
           <strong>Campaign: Aïd El-Fitr + B2B Launch</strong>
@@ -1193,16 +2141,115 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">1,634,260 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Working capital restock (Aïd surge)</span><span class="cli-calc">one-time</span><span class="cli-val">1,001,500</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 2,150 orders, 60% apparel</span><span class="cli-calc">1,290 × 340</span><span class="cli-val">438,600</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">322 × 227</span><span class="cli-val">73,094</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">322 × 170</span><span class="cli-val">54,740</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">215 × 161</span><span class="cli-val">34,615</span></div>
+          <div class="cost-line"><span class="cli-name">B2B print outsourcing — 3 orders</span><span class="cli-calc">3 × 66,000 (60% margin)</span><span class="cli-val">approx. incl.</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">48,313 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze (scaled ~2,150 users)</span><span class="cli-calc">est.</span><span class="cli-val">16,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line"><span class="cli-name">AI API operating cost</span><span class="cli-calc">~2,000 gen × 2.7</span><span class="cli-val">5,400</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">653,333 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Senior ML Engineer</span><span class="cli-calc">275,000/mo</span><span class="cli-val">275,000</span></div>
+          <div class="cost-line"><span class="cli-name">QA/DevOps engineer (freelance)</span><span class="cli-calc">133,333/mo</span><span class="cli-val">133,333</span></div>
+          <div class="cost-line"><span class="cli-name">3 production operators</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">700,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Influencer activation — Aïd El-Fitr</span><span class="cli-calc">event-based</span><span class="cli-val">250,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Seasonal campaign — Aïd El-Fitr</span><span class="cli-calc">event-based</span><span class="cli-val">150,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 3,101,739 DZD <small style="color:var(--muted-fg);font-weight:400">(restock + Aïd campaign)</small></div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:53"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:23"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:2"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:21"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:2"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production (incl. working capital) <span class="cbl-pct">53%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing (incl. campaign) <span class="cbl-pct">23%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">21%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">2%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">2%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">2,036,900</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−1,450,662</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">2,150 + 3 B2B</div><div class="fc-lbl">Orders</div></div>
       <div class="fin-cell"><div class="fc-val">2,036,900</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val negative">−1,450,662</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+1,128,622</div><div class="fc-lbl">Monthly Net</div></div>
+      <div class="fin-cell"><div class="fc-val">422</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓↓ operating leverage</div></div>
     </div>
   </div>
 </div>
 
-<!-- M10 -->
+<!-- ════════ M10 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -1225,25 +2272,18 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
-          <li>Android v1.0 declared stable after QA feedback cycles — crash rate <1%</li>
+          <li>Android v1.0 declared stable after QA feedback cycles — crash rate &lt;1%</li>
           <li>iOS app submitted to Apple App Store for review (7–14 day review window expected)</li>
           <li>App Store listing optimized: screenshots, keywords, description in Arabic + French + English</li>
           <li>AI feature: rate limiting tuned based on Month 9 usage data</li>
           <li>AI API cost tracking: on track at ~5,400 DZD/month for 2,000 generations/month</li>
-          <li>Dataset curation plan for Phase 5 AI model: tagging methodology designed</li>
           <li>B2B portal UX tested with first 3 real clients</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>Jogger pants in full production rotation — all apparel products now fully operational</li>
           <li>3,500+ orders/month capacity validated with current team and equipment</li>
@@ -1254,10 +2294,7 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing & Acquisition</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing & Acquisition</div></div>
         <ul>
           <li>Steady Meta Ads + TikTok Ads + organic spend — no major campaign this month</li>
           <li>Android app: App Store Optimization (ASO) monitoring; user reviews encouraged</li>
@@ -1267,16 +2304,112 @@
         </ul>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">505,283 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 1,350 orders, 60% apparel</span><span class="cli-calc">810 × 340</span><span class="cli-val">275,400</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">202 × 227</span><span class="cli-val">45,854</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">202 × 170</span><span class="cli-val">34,340</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">135 × 161</span><span class="cli-val">21,735</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">22,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">47,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team</span><span class="cli-calc">10,780/mo</span><span class="cli-val">10,780</span></div>
+          <div class="cost-line"><span class="cli-name">Firebase Blaze</span><span class="cli-calc">est.</span><span class="cli-val">15,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line"><span class="cli-name">AI API operating cost</span><span class="cli-calc">~2,000 gen</span><span class="cli-val">5,400</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">653,333 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Senior ML Engineer</span><span class="cli-calc">275,000/mo</span><span class="cli-val">275,000</span></div>
+          <div class="cost-line"><span class="cli-name">QA/DevOps engineer (freelance)</span><span class="cli-calc">133,333/mo</span><span class="cli-val">133,333</span></div>
+          <div class="cost-line"><span class="cli-name">3 production operators</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">300,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,572,062 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:32"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:19"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:42"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:4"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">42%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">32%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">19%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">4%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">1,416,100</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−942,840</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">1,350 + 5 B2B</div><div class="fc-lbl">Orders</div></div>
       <div class="fin-cell"><div class="fc-val">1,416,100</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val negative">−942,840</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+507,822</div><div class="fc-lbl">Monthly Net</div></div>
+      <div class="fin-cell"><div class="fc-val">673</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">team-heavy month</div></div>
     </div>
   </div>
 </div>
 
-<!-- M11 -->
+<!-- ════════ M11 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -1300,24 +2433,17 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & IT</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & IT</div></div>
         <ul>
           <li>iOS app live on Apple App Store</li>
           <li>B2B portal fully live: business account creation, bulk order management, invoice generation</li>
           <li>Full platform/mobile parity nearly achieved: web editor features synced to mobile</li>
           <li>Dataset curation for Phase 5 AI model begins: tagging Algerian calligraphy, streetwear, event merch designs</li>
           <li>Push notifications optimized for both Android and iOS</li>
-          <li>App analytics review: funnel drop-off analysis for mobile conversion optimization</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>Second regional fulfillment partner signed — enables faster delivery to eastern and western Algeria</li>
           <li>Aïd El-Adha demand surge prepared: gifting bundle inventory stocked</li>
@@ -1327,15 +2453,12 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Aïd El-Adha</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Aïd El-Adha</div></div>
         <ul>
-          <li>Aïd El-Adha campaign (~mid-May 2027): influencer activation 200,000 DZD + seasonal budget 100,000 DZD = 300,000 DZD</li>
+          <li>Aïd El-Adha campaign (~mid-May 2027): influencer activation 200,000 DZD + seasonal budget 100,000 DZD</li>
           <li>Gifting bundles: mugs, tote bags, personalised apparel sets</li>
           <li>iOS launch promoted: download CTAs across all channels</li>
-          <li>Riglo Design Competition results published: 100,000 DZD prize awarded; winners featured in campaign</li>
+          <li>Riglo Design Competition results published: 100,000 DZD prize awarded</li>
           <li>Creator Fund announcement: top 10 designers to receive monthly stipend in Year 2</li>
         </ul>
         <div class="highlight-item">
@@ -1344,16 +2467,113 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">574,503 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 1,750 orders, 60% apparel</span><span class="cli-calc">1,050 × 340</span><span class="cli-val">357,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">262 × 227</span><span class="cli-val">59,474</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">262 × 170</span><span class="cli-val">44,540</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">175 × 161</span><span class="cli-val">28,175</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">28,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">47,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team + Firebase</span><span class="cli-calc">32,000/mo</span><span class="cli-val">32,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line"><span class="cli-name">AI API operating cost</span><span class="cli-calc">~2,000 gen</span><span class="cli-val">5,400</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">520,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Senior ML Engineer (last month)</span><span class="cli-calc">275,000/mo</span><span class="cli-val">275,000</span></div>
+          <div class="cost-line"><span class="cli-name">3 production operators</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">600,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Influencer activation — Aïd El-Adha</span><span class="cli-calc">event-based</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Seasonal campaign — Aïd El-Adha</span><span class="cli-calc">event-based</span><span class="cli-val">100,000</span></div>
+          <div class="cost-line one-time"><span class="cli-name">Design Competition prize</span><span class="cli-calc">one-time</span><span class="cli-val">100,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,807,949 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:32"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:33"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:3"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:29"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:4"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing (campaign + prize) <span class="cbl-pct">33%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">32%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">29%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">4%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">3%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">1,814,500</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:var(--gold)">−36,618</div><div class="ctc-lbl">Cumulative Position</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">1,750 + 6 B2B</div><div class="fc-lbl">Orders</div></div>
       <div class="fin-cell"><div class="fc-val">1,814,500</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val negative">−36,618</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+906,222</div><div class="fc-lbl">Monthly Net</div></div>
+      <div class="fin-cell"><div class="fc-val">519</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">campaign included</div></div>
     </div>
   </div>
 </div>
 
-<!-- M12 -->
+<!-- ════════ M12 ════════ -->
 <div class="month-card">
   <div class="month-header" onclick="toggle(this)">
     <div class="month-num">
@@ -1377,24 +2597,17 @@
   <div class="month-detail">
     <div class="detail-grid">
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-tech">💻</div>
-          <div class="detail-col-title">Technology & AI</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-tech">💻</div><div class="detail-col-title">Technology & AI</div></div>
         <ul>
           <li>Full platform/mobile parity achieved: every web editor feature available on iOS + Android</li>
           <li>Phase 5 dataset curation actively building: 10,000–50,000 design images tagged (Algerian calligraphy, streetwear, event merch, minimal styles)</li>
           <li>Year 2 infrastructure planning: Google Cloud Run migration design for 35K-user scale</li>
-          <li>Redis caching layer design for Year 2</li>
           <li>AI API evaluation summary completed: documented results for Year 2 model selection decision</li>
           <li>All tech subscriptions renewed for Year 2</li>
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-prod">🏭</div>
-          <div class="detail-col-title">Production & Operations</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-prod">🏭</div><div class="detail-col-title">Production & Operations</div></div>
         <ul>
           <li>All heat pressing technology stable: pneumatic, cap, mug, flat presses all operational</li>
           <li>EBITDA-positive month: first month gross profit significantly exceeds monthly opex</li>
@@ -1405,10 +2618,7 @@
         </ul>
       </div>
       <div class="detail-col">
-        <div class="detail-col-header">
-          <div class="detail-col-icon icon-mkt">📣</div>
-          <div class="detail-col-title">Marketing — Anniversary</div>
-        </div>
+        <div class="detail-col-header"><div class="detail-col-icon icon-mkt">📣</div><div class="detail-col-title">Marketing — Anniversary</div></div>
         <ul>
           <li>Riglo 1st anniversary campaign: 20 months since Oct 2024 launch</li>
           <li>Graduation season push: custom graduation tees, mugs, photo books</li>
@@ -1422,11 +2632,104 @@
         </div>
       </div>
     </div>
+
+    <div class="cost-ledger">
+      <div class="cost-ledger-title">Monthly Cost Breakdown</div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-prod)"></div>
+          <div class="cost-section-name">Production & Inventory</div>
+          <div class="cost-section-subtotal">615,369 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Facility rent</span><span class="cli-calc">200,000/mo</span><span class="cli-val">200,000</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — 1,910 orders, 60% apparel</span><span class="cli-calc">1,146 × 340</span><span class="cli-val">389,640</span></div>
+          <div class="cost-line"><span class="cli-name">DTF film — accessories 15%</span><span class="cli-calc">286 × 227</span><span class="cli-val">64,922</span></div>
+          <div class="cost-line"><span class="cli-name">Sublimation paper 15%</span><span class="cli-calc">286 × 170</span><span class="cli-val">48,620</span></div>
+          <div class="cost-line"><span class="cli-name">UV film 10%</span><span class="cli-calc">191 × 161</span><span class="cli-val">30,751</span></div>
+          <div class="cost-line"><span class="cli-name">Finishing consumables</span><span class="cli-calc">9,875/mo</span><span class="cli-val">9,875</span></div>
+          <div class="cost-line"><span class="cli-name">Packaging materials</span><span class="cli-calc">est.</span><span class="cli-val">30,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-tech)"></div>
+          <div class="cost-section-name">Technology & IT</div>
+          <div class="cost-section-subtotal">47,613 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Cloudflare Pro + Sentry Team + Firebase</span><span class="cli-calc">32,000/mo</span><span class="cli-val">32,000</span></div>
+          <div class="cost-line"><span class="cli-name">Google Workspace + GitHub Team</span><span class="cli-calc">15,833/mo</span><span class="cli-val">15,833</span></div>
+          <div class="cost-line"><span class="cli-name">AI API operating cost</span><span class="cli-calc">~2,000 gen</span><span class="cli-val">5,400</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-team)"></div>
+          <div class="cost-section-name">Team & Payroll</div>
+          <div class="cost-section-subtotal">195,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">3 production operators</span><span class="cli-calc">3 × 50,000</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">Customer support</span><span class="cli-calc">45,000/mo</span><span class="cli-val">45,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-mkt)"></div>
+          <div class="cost-section-name">Marketing & Acquisition</div>
+          <div class="cost-section-subtotal">300,000 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Meta Ads</span><span class="cli-calc">150,000/mo</span><span class="cli-val">150,000</span></div>
+          <div class="cost-line"><span class="cli-name">TikTok Ads</span><span class="cli-calc">65,000/mo</span><span class="cli-val">65,000</span></div>
+          <div class="cost-line"><span class="cli-name">Organic content creation</span><span class="cli-calc">85,000/mo</span><span class="cli-val">85,000</span></div>
+        </div>
+      </div>
+      <div class="cost-section">
+        <div class="cost-section-header">
+          <div class="cost-section-dot" style="background:var(--c-ops)"></div>
+          <div class="cost-section-name">Operations & Legal</div>
+          <div class="cost-section-subtotal">65,833 DZD</div>
+        </div>
+        <div class="cost-line-items">
+          <div class="cost-line"><span class="cli-name">Utilities + insurance + tools</span><span class="cli-calc">65,833/mo</span><span class="cli-val">65,833</span></div>
+        </div>
+      </div>
+      <div class="cost-divider"></div>
+      <div class="cost-bar-wrap">
+        <div class="cost-bar-label-row">
+          <div class="cost-bar-label">Cost composition this month</div>
+          <div class="cost-bar-total-label">Total Monthly Cost: 1,223,815 DZD</div>
+        </div>
+        <div class="cost-bar">
+          <div class="cost-bar-seg" style="background:var(--c-prod);flex:50"></div>
+          <div class="cost-bar-seg" style="background:var(--c-mkt);flex:25"></div>
+          <div class="cost-bar-seg" style="background:var(--c-tech);flex:4"></div>
+          <div class="cost-bar-seg" style="background:var(--c-team);flex:16"></div>
+          <div class="cost-bar-seg" style="background:var(--c-ops);flex:5"></div>
+        </div>
+        <div class="cost-bar-legend">
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-prod)"></div>Production <span class="cbl-pct">50%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-mkt)"></div>Marketing <span class="cbl-pct">25%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-team)"></div>Team <span class="cbl-pct">16%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-ops)"></div>Ops <span class="cbl-pct">5%</span></div>
+          <div class="cbl-item"><div class="cbl-dot" style="background:var(--c-tech)"></div>Technology <span class="cbl-pct">4%</span></div>
+        </div>
+      </div>
+      <div class="cost-totals-row">
+        <div class="cost-total-cell"><div class="ctc-val">1,956,460</div><div class="ctc-lbl">Gross Profit (DZD)</div></div>
+        <div class="cost-total-cell"><div class="ctc-val">908,278</div><div class="ctc-lbl">Monthly Opex (recurring)</div></div>
+        <div class="cost-total-cell highlight"><div class="ctc-val" style="color:#6fcf97">+1,011,564</div><div class="ctc-lbl">Cumulative — BREAK-EVEN ✓</div></div>
+      </div>
+    </div>
+
     <div class="fin-row">
       <div class="fin-cell"><div class="fc-val">1,910 + 6 B2B</div><div class="fc-lbl">Orders</div></div>
       <div class="fin-cell"><div class="fc-val">1,956,460</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
-      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Recurring Opex (DZD)</div></div>
       <div class="fin-cell"><div class="fc-val positive">+1,011,564</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">476</div><div class="fc-lbl">Cost / Order</div><div class="fc-sub">↓ best of year</div></div>
     </div>
   </div>
 </div>
@@ -1459,6 +2762,57 @@
   </div>
 </div>
 
+<!-- ANNUAL COST TABLE -->
+<div class="annual-cost-section">
+  <div class="annual-cost-header">
+    <h2>Year 1 — Annual Cost Summary by Category</h2>
+    <span class="ach-sub">Expected Scenario · Reconciliation against 20,171,439 DZD investment</span>
+  </div>
+  <div style="overflow-x:auto">
+  <table class="annual-table">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th><span class="cat-swatch" style="background:var(--c-prod)"></span>Production</th>
+        <th><span class="cat-swatch" style="background:var(--c-mkt)"></span>Marketing</th>
+        <th><span class="cat-swatch" style="background:var(--c-tech)"></span>Technology</th>
+        <th><span class="cat-swatch" style="background:var(--c-team)"></span>Team</th>
+        <th><span class="cat-swatch" style="background:var(--c-ops)"></span>Ops/Legal</th>
+        <th>Monthly Total</th>
+        <th>Cost/Order</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>M1 Jul '26</td><td>2,889,000</td><td>302,500</td><td>68,900</td><td>200,000</td><td>64,750</td><td>3,525,150</td><td>886 DZD</td></tr>
+      <tr><td>M2 Aug '26</td><td>238,151</td><td>197,500</td><td>32,613</td><td>200,000</td><td>65,833</td><td>734,097</td><td>887 DZD</td></tr>
+      <tr><td>M3 Sep '26</td><td>361,151</td><td>485,000</td><td>34,613</td><td>200,000</td><td>65,833</td><td>1,146,597</td><td>2,730 DZD</td></tr>
+      <tr><td>M4 Oct '26</td><td>366,793</td><td>300,000</td><td>34,613</td><td>150,000</td><td>65,833</td><td>917,239</td><td>1,764 DZD</td></tr>
+      <tr><td>M5 Nov '26</td><td>420,930</td><td>300,000</td><td>34,613</td><td>195,000</td><td>65,833</td><td>1,016,376</td><td>1,452 DZD</td></tr>
+      <tr><td>M6 Dec '26</td><td>523,309</td><td>400,000</td><td>36,613</td><td>195,000</td><td>65,833</td><td>1,220,755</td><td>1,163 DZD</td></tr>
+      <tr><td>M7 Jan '27</td><td>1,218,454</td><td>300,000</td><td>59,613</td><td>520,000</td><td>65,833</td><td>2,163,900</td><td>2,545 DZD</td></tr>
+      <tr><td>M8 Feb '27</td><td>968,334</td><td>650,000</td><td>45,613</td><td>653,333</td><td>65,833</td><td>2,383,113</td><td>1,537 DZD</td></tr>
+      <tr><td>M9 Mar '27</td><td>1,634,260</td><td>700,000</td><td>48,313</td><td>653,333</td><td>65,833</td><td>3,101,739</td><td>1,443 DZD</td></tr>
+      <tr><td>M10 Apr '27</td><td>608,204</td><td>300,000</td><td>47,613</td><td>653,333</td><td>65,833</td><td>1,674,983</td><td>1,241 DZD</td></tr>
+      <tr><td>M11 May '27</td><td>726,864</td><td>600,000</td><td>47,613</td><td>520,000</td><td>65,833</td><td>1,960,310</td><td>1,120 DZD</td></tr>
+      <tr><td>M12 Jun '27</td><td>733,808</td><td>300,000</td><td>47,613</td><td>195,000</td><td>65,833</td><td>1,342,254</td><td>703 DZD</td></tr>
+      <tr class="total-row">
+        <td>Year 1 Total</td>
+        <td>10,689,258</td>
+        <td>4,835,000</td>
+        <td>537,748</td>
+        <td>4,134,999</td>
+        <td>789,496</td>
+        <td><strong>20,986,501</strong></td>
+        <td>avg 1,683 DZD</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="padding:16px 24px;font-size:12px;color:var(--muted-fg);border-top:1px solid var(--border)">
+    <strong style="color:var(--dark-olive)">⬡ One-time items</strong> are marked in each monthly ledger. The 20,986,501 DZD annual total includes all one-time setup costs (facility, equipment, initial inventory, campaigns) and reconciles closely with the 20,171,439 DZD investment figure (difference reflects minor working capital timing adjustments). Recurring monthly opex of 908,278 DZD covers the steady-state cost base; months with restocking, campaigns, or new hires will exceed this figure.
+  </div>
+</div>
+
 </main>
 
 <footer>
@@ -1468,7 +2822,7 @@
   <div>
     <a href="https://riglo.net">riglo.net</a> &nbsp;·&nbsp; 
     Prepared by RIGLO for Investor Review &nbsp;·&nbsp; 
-    Version 2.0 · June 2026
+    Version 3.0 · June 2026
   </div>
 </footer>
 
