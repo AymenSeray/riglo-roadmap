@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIGLO — 12-Month Milestone Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --burgundy: #2D0C1C;
+    --crimson: #78121E;
+    --gold: #CBAB6E;
+    --cream: #F4F5DB;
+    --dark-olive: #43361B;
+    --orange: #FF5E00;
+    --muted: #e8e9d4;
+    --muted-fg: #6b6854;
+    --border: rgba(203,171,110,0.25);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark-olive);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--burgundy);
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(203,171,110,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  header h1 span { color: var(--gold); }
+  .header-sub {
+    color: rgba(244,245,219,0.6);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(203,171,110,0.12);
+    border: 1px solid rgba(203,171,110,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ── LEGEND ── */
+  .legend-bar {
+    background: var(--burgundy);
+    padding: 16px 40px 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(203,171,110,0.15);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(244,245,219,0.75);
+    font-weight: 500;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  /* ── PHASE HEADER ── */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 20px;
+  }
+  .phase-badge {
+    background: var(--burgundy);
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--burgundy);
+  }
+  .phase-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .phase-months {
+    font-size: 12px;
+    color: var(--muted-fg);
+    white-space: nowrap;
+  }
+
+  /* ── MONTH CARD ── */
+  .month-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(203,171,110,0.08);
+    transition: box-shadow 0.2s;
+  }
+  .month-card:hover {
+    box-shadow: 0 4px 20px rgba(203,171,110,0.18);
+  }
+
+  .month-header {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    align-items: center;
+    gap: 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .month-num {
+    background: var(--burgundy);
+    color: var(--cream);
+    padding: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 80px;
+  }
+  .month-num .m-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(203,171,110,0.7);
+  }
+  .month-num .m-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .month-num .m-cal {
+    font-size: 11px;
+    color: rgba(244,245,219,0.55);
+    font-weight: 500;
+  }
+
+  .month-summary {
+    padding: 16px 20px;
+  }
+  .month-summary h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-olive);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .tag-tech   { color: #1a5276; background: #d6eaf8; border-color: #aed6f1; }
+  .tag-prod   { color: #196f3d; background: #d5f5e3; border-color: #a9dfbf; }
+  .tag-mkt    { color: #6e2f8c; background: #f0e6f6; border-color: #d7bde2; }
+  .tag-kpi    { color: var(--crimson); background: #fce8e8; border-color: #f5b7b1; }
+  .tag-b2b    { color: #784212; background: #fdebd0; border-color: #f8c471; }
+  .tag-ai     { color: #1a5276; background: #d1f2eb; border-color: #76d7c4; }
+
+  .month-kpis {
+    padding: 12px 20px 16px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .kpi-item {
+    text-align: right;
+  }
+  .kpi-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    line-height: 1;
+  }
+  .kpi-lbl {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    padding: 20px 20px;
+    cursor: pointer;
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  .toggle-btn.open { transform: rotate(180deg); }
+
+  /* ── DETAIL PANEL ── */
+  .month-detail {
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+  .month-detail.open { display: block; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+  }
+
+  .detail-col {
+    padding: 20px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .detail-col:last-child { border-right: none; }
+
+  .detail-col-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .detail-col-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .icon-tech   { background: #d6eaf8; }
+  .icon-prod   { background: #d5f5e3; }
+  .icon-mkt    { background: #f0e6f6; }
+  .icon-fin    { background: #fce8e8; }
+
+  .detail-col-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-fg);
+  }
+
+  .detail-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .detail-col ul li {
+    font-size: 13px;
+    color: var(--dark-olive);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .detail-col ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .highlight-item {
+    background: rgba(203,171,110,0.08);
+    border: 1px solid rgba(203,171,110,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--dark-olive);
+  }
+  .highlight-item strong {
+    color: var(--burgundy);
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+
+  /* ── FINANCIALS ROW ── */
+  .fin-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+    background: rgba(244,245,219,0.5);
+  }
+  .fin-cell {
+    padding: 14px 20px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .fin-cell:last-child { border-right: none; }
+  .fin-cell .fc-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--burgundy);
+  }
+  .fin-cell .fc-val.negative { color: var(--crimson); }
+  .fin-cell .fc-val.positive { color: #1a7a3a; }
+  .fin-cell .fc-lbl {
+    font-size: 10px;
+    color: var(--muted-fg);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+
+  /* ── CUMULATIVE SUMMARY ── */
+  .cumulative-bar {
+    background: var(--burgundy);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cumulative-bar::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(203,171,110,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cum-item { text-align: center; }
+  .cum-item .cv {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .cum-item .cl {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(244,245,219,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 40px;
+    background: var(--burgundy);
+    color: rgba(244,245,219,0.45);
+    font-size: 12px;
+    border-top: 1px solid rgba(203,171,110,0.15);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    header { padding: 32px 20px 28px; }
+    header h1 { font-size: 1.8rem; }
+    main { padding: 24px 16px 60px; }
+    .legend-bar { padding: 12px 20px 14px; }
+    .month-header { grid-template-columns: 72px 1fr auto; }
+    .month-num .m-number { font-size: 1.3rem; }
+    .fin-row { grid-template-columns: repeat(2, 1fr); }
+    .fin-cell:nth-child(2) { border-right: none; }
+    .fin-cell:nth-child(3) { border-top: 1px solid var(--border); }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-col { border-right: none; border-bottom: 1px solid var(--border); }
+    .detail-col:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Three-Year Growth Plan · Year 1 Detail</div>
+  <h1>RIGLO <span>12-Month</span> Milestone Roadmap</h1>
+  <div class="header-sub">Expected Scenario · July 2026 → June 2027 · Investment: 17,887,239 DZD</div>
+  <div class="header-meta">
+    <span class="meta-pill">Month 1 = July 2026</span>
+    <span class="meta-pill">Expected Scenario</span>
+    <span class="meta-pill">12,450 D2C Orders / Year</span>
+    <span class="meta-pill">Break-even: Month 12</span>
+  </div>
+</header>
+
+<div class="legend-bar">
+  <div class="legend-item"><div class="legend-dot" style="background:#aed6f1"></div> Technology & Platform</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#a9dfbf"></div> Production & Operations</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d7bde2"></div> Marketing & Acquisition</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#76d7c4"></div> AI Integration</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f8c471"></div> B2B</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f5b7b1"></div> Financial KPI</div>
+</div>
+
+<main>
+
+<!-- ─── PHASE 1 ─── -->
+<div class="phase-header">
+  <div class="phase-badge">Phase 1</div>
+  <div class="phase-title">Platform Stability, UX & Compliance</div>
+  <div class="phase-line"></div>
+  <div class="phase-months">Months 1–6 · Jul – Dec 2026</div>
+</div>
+
+<!-- M1 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">01</span>
+      <span class="m-cal">Jul '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>Foundation Sprint — Infrastructure, Facility & Organic Launch</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Annual subscriptions live</span>
+        <span class="tag tag-prod">Facility lease signed</span>
+        <span class="tag tag-prod">Heat presses ordered</span>
+        <span class="tag tag-mkt">SEO/CRO begins</span>
+        <span class="tag tag-mkt">Organic content starts</span>
+        <span class="tag tag-prod">INAPI filing starts</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>All annual subscriptions activated: Cloudflare Pro, Sentry Team, Firebase Blaze, Zimail SMTP, Infobip SMS (5,000 SMS/month)</li>
+          <li>Algerian payment gateway initiated (Chargily / SATIM one-time onboarding, 50,000 DZD)</li>
+          <li>ADEX S3 Algerian object storage activated for personal data compliance</li>
+          <li>DZSecurity Wind hosting plan live (incubator-covered)</li>
+          <li>GitHub Actions CI/CD pipeline scaffolded</li>
+          <li>Freelance full-stack developer engaged (M1–M3 contract starts)</li>
+          <li>Sentry error monitoring connected to production</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Facility lease signed: 150–200 m² industrial unit, Algiers industrial zone (6-month deposit: 1,200,000 DZD)</li>
+          <li>Electrical installation & industrial circuits upgrade ordered (185,000 DZD)</li>
+          <li>Heat presses & finishing equipment ordered (pneumatic, cap, mug, flat presses)</li>
+          <li>Core apparel blank stock ordered from supplier: 2,000 t-shirts, 1,000 hoodies, 1,000 tote bags</li>
+          <li>INTAJ meeting scheduled: machine import discussion (DTF, UV, sublimation printers)</li>
+          <li>INAPI trademark filing initiated — Classes 25, 35, 42</li>
+          <li>Color calibration device (X-Rite equivalent) ordered</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Key decision this month</strong>
+          Machine import discussion with INTAJ must begin now — customs resolution timeline directly affects Month 6+ production capacity.
+        </div>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>Studio lighting setup purchased (60,000 DZD) + tripod & stabilisation gear (17,500 DZD)</li>
+          <li>SEO/CRO audit begins: technical SEO, keyword mapping, conversion rate analysis</li>
+          <li>Organic content calendar established: Instagram Reels, TikTok, product photography</li>
+          <li>Outreach to 100 Algerian designers (Instagram, Behance, ESBA, ENSSA art schools)</li>
+          <li>Target: 20 designers onboarded to marketplace beta by Month 2</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">60</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">53,160</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−855,118</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M2 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">02</span>
+      <span class="m-cal">Aug '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>Auth & Compliance Sprint — Data Residency Migration & Designer Onboarding</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Data residency migration</span>
+        <span class="tag tag-tech">Auth flows live</span>
+        <span class="tag tag-tech">CI/CD + test suite</span>
+        <span class="tag tag-prod">Equipment delivered</span>
+        <span class="tag tag-mkt">20 designers onboarded</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Algerian data residency migration: web hosting Vercel → DZSecurity Wind; object storage Cloudflare R2 → ADEX S3 (Sidi Abdellah)</li>
+          <li>Password recovery flow implemented via Zimail SMTP</li>
+          <li>Email verification + SMS OTP via Infobip activated</li>
+          <li>Order status notification system deployed (email + SMS)</li>
+          <li>Unit and integration test suite scaffolded; automated CI/CD pipeline via GitHub Actions formalized</li>
+          <li>Flutter mobile app: full API audit vs current backend begins</li>
+          <li>Separate dev/production database environments set up</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>All heat presses delivered and installed in facility</li>
+          <li>Backup press installed; electrical works completed</li>
+          <li>Workstations, steel benches, and storage racks installed</li>
+          <li>Fire safety system (extinguishers + compliance kit) installed</li>
+          <li>Packaging station assembled (sealer + scale + fulfillment setup)</li>
+          <li>Thermal label printer (Zebra equivalent) configured</li>
+          <li>Laminator A3 installed</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>SEO/CRO optimisation continues (technical fixes, page speed)</li>
+          <li>Organic content: daily posts, product photography sessions with new studio setup</li>
+          <li>20 designers onboarded to marketplace beta — profiles live, first designs uploaded</li>
+          <li>Marketplace beta UX tested with real designer feedback</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Milestone</strong>
+          Legal requirement met: all personal data now hosted on Algerian servers (ADEX S3 Sidi Abdellah data center).
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">140</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">124,040</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−1,639,356</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M3 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">03</span>
+      <span class="m-cal">Sep '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>Payment Gateway Live — Back-to-School Campaign & Paid Ads Launch</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Payment gateway live</span>
+        <span class="tag tag-tech">Editor UX improvements</span>
+        <span class="tag tag-mkt">Meta Ads launched</span>
+        <span class="tag tag-mkt">Back-to-School campaign</span>
+        <span class="tag tag-prod">DTF transfers received</span>
+        <span class="tag tag-prod">QC protocol set</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Algerian payment gateway live: BaridiMob, CCP, Dahabia (Chargily / SATIM) — highest-priority commercial unlock</li>
+          <li>Infrastructure reliability: separate dev/prod DBs confirmed; Sentry alerting tuned; DB cleanup scripts deployed</li>
+          <li>Editor UX — first batch: copy/paste + keyboard shortcuts, center/alignment tools, printable area boundary</li>
+          <li>Background removal tool integrated into editor (Rembg preview)</li>
+          <li>Homepage: testimonials section + Instagram gallery added</li>
+          <li>Supabase → self-managed Node.js/Next.js API migration plan finalized</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>First DTF transfers received from outsourced supplier — pressing protocol tested on blanks</li>
+          <li>QC color calibration protocol established (X-Rite device calibrated)</li>
+          <li>Packaging & branded collateral stocked: poly mailers (2,000 units), sticker seals (1,000), gift boxes (500)</li>
+          <li>Roll-up banner hardware stocked (30 units) for upcoming B2B catalogue</li>
+          <li>First orders fulfilled with full in-house pressing → packaging → dispatch workflow</li>
+          <li>Pressing consumables stocked: heat tape (40 rolls), silicone paper (4 rolls), lint rollers, trimming blades</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Back-to-School</div>
+        </div>
+        <ul>
+          <li>Meta Ads (Facebook + Instagram) launched: 120,000–180,000 DZD/month budget begins</li>
+          <li>Back-to-School campaign: event-based influencer activation (150,000 DZD) + seasonal budget (100,000 DZD)</li>
+          <li>University-focused targeting; ambassador discount codes distributed</li>
+          <li>Clubs & associations outreach: custom merch for student orgs</li>
+          <li>Target: ~420 orders this month from paid + organic</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Campaign: Back-to-School</strong>
+          September 2026 — University audience, ambassador activation, discount codes. Budget: 250,000 DZD (influencer 150K + seasonal 100K).
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">420</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">372,120</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−2,175,514</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M4 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">04</span>
+      <span class="m-cal">Oct '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>TikTok Ads & Mobile Dev — Production Operators Hired</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Flutter rewrite begins</span>
+        <span class="tag tag-tech">Mobile store accounts</span>
+        <span class="tag tag-prod">3 operators hired</span>
+        <span class="tag tag-prod">Packaging station live</span>
+        <span class="tag tag-mkt">TikTok Ads launched</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Google Play Developer Account activated (5,950 DZD — incubator-covered)</li>
+          <li>Apple Developer Account activated (30,940 DZD — incubator-covered)</li>
+          <li>Flutter app full API audit complete; API integration layer rewrite begins</li>
+          <li>Mobile app core user flows development starts: shop, product customization, cart, checkout, order tracking</li>
+          <li>Mobile auth flows: JWT handling, biometric auth, OTP verification</li>
+          <li>Homepage/shop UX: product photos added, enhanced browsing, stock indicators in dashboard</li>
+          <li>Backend query optimization: response time targets <300ms for core endpoints</li>
+          <li>Editor UX — second batch: font library expansion, image crop shapes, enhanced text controls</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>3 production operators hired (part-time, 40,000–60,000 DZD/month each)</li>
+          <li>Packaging station fully operational: sealer, scale, fulfillment flow trained</li>
+          <li>Caps, tote bags in regular production rotation</li>
+          <li>Delivery SLA tracking implemented: on-time rate target 95%</li>
+          <li>Supplier turnaround time benchmarked for DTF transfers</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>TikTok Ads launched: 50,000–80,000 DZD/month budget begins</li>
+          <li>Short-form video content optimized for TikTok algorithm (product customization demos)</li>
+          <li>Riglo Creator programme announced publicly — promotional video produced</li>
+          <li>50 designers targeted for active marketplace status by month-end</li>
+          <li>Steady Meta Ads + organic spend continues</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">520</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">460,720</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−2,623,072</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M5 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">05</span>
+      <span class="m-cal">Nov '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>Load Testing & Mobile Editor — Customer Support Hired</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">10K user load test</span>
+        <span class="tag tag-tech">Mobile editor (touch)</span>
+        <span class="tag tag-prod">Customer support hired</span>
+        <span class="tag tag-prod">95% on-time delivery</span>
+        <span class="tag tag-mkt">Steady multi-channel spend</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Load testing at 10,000 concurrent user scale — identify and resolve bottlenecks</li>
+          <li>CDN caching tuned via Cloudflare Pro; capacity benchmarking complete</li>
+          <li>Mobile editor: touch gestures and tap targets implementation begins</li>
+          <li>Flutter canvas for mobile customization editor (Fabric.js feature parity target)</li>
+          <li>Secure local storage + biometric auth implemented for mobile app</li>
+          <li>Optimisation for low-end Android devices: image lazy loading</li>
+          <li>Homepage UX finalized: testimonials, product browsing enhancements live</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Customer support hired (part-time, 40,000–50,000 DZD/month)</li>
+          <li>Delivery SLA: 95% on-time delivery rate achieved (national)</li>
+          <li>Damage/loss rate reduced to 3%</li>
+          <li>Avg. delivery time: 60 hours (national)</li>
+          <li>Order fulfillment flow fully documented and trained across 3 operators</li>
+          <li>"Featured Designer of the Week" social media series launched</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>Steady Meta Ads + TikTok Ads + organic spend continues</li>
+          <li>Monthly payout leaderboard for designers introduced</li>
+          <li>Content: product launch videos for hoodies and caps ahead of winter season</li>
+          <li>Retargeting campaigns active for cart abandonment</li>
+          <li>University semester in full swing — student ambassador program active</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">700</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">620,200</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−2,911,150</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M6 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">06</span>
+      <span class="m-cal">Dec '26</span>
+    </div>
+    <div class="month-summary">
+      <h3>Backend Migration & Winter Campaign — Full Algerian Hosting Complete</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Backend migration phase 1</span>
+        <span class="tag tag-tech">Fully Algerian-hosted</span>
+        <span class="tag tag-prod">Full pressing capability</span>
+        <span class="tag tag-mkt">Winter Hoodie & Cap launch</span>
+        <span class="tag tag-kpi">1,050 orders/month</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Backend migration phase 1 complete: Supabase → self-managed Node.js/Next.js API</li>
+          <li>Platform fully Algerian-hosted: DZSecurity Wind + ADEX S3</li>
+          <li>Scaling load tests: 10K concurrent users passed, bottlenecks resolved</li>
+          <li>Code quality milestone: test coverage established, code review process formalized</li>
+          <li>Mobile app core user flows (shop, checkout, order tracking) feature-complete</li>
+          <li>Offline-capable order tracking implemented for mobile</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Full in-house pressing capability operational: apparel (t-shirts, hoodies), caps, tote bags all in rotation</li>
+          <li>Jogger pants blanks received — DTF pressing protocol established</li>
+          <li>Production capacity: ~1,500 orders/month achieved</li>
+          <li>Holiday season order surge managed with 3-operator team</li>
+          <li>Year-end gift packaging bundles prepared</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Winter Launch</div>
+        </div>
+        <ul>
+          <li>Winter Hoodie & Cap Launch campaign: seasonal budget 100,000 DZD</li>
+          <li>Gifting bundles promoted: hoodie + cap + tote gift sets</li>
+          <li>Year-end gift-giving angle: corporate & personal gifting</li>
+          <li>Strong December organic lift expected (gift-season demand)</li>
+          <li>TikTok + Meta ads seasonally adjusted for holiday intent</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Phase 1 Complete</strong>
+          Platform excellence and Algerian compliance fully achieved. Foundation for Phase 2 (mobile) and Phase 3 (AI) is now solid.
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">1,050</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">930,300</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−2,889,128</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PHASE 2 + 3 ─── -->
+<div class="phase-header">
+  <div class="phase-badge">Phase 2 + 3</div>
+  <div class="phase-title">Mobile App & AI Integration</div>
+  <div class="phase-line"></div>
+  <div class="phase-months">Months 7–12 · Jan – Jun 2027</div>
+</div>
+
+<!-- M7 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">07</span>
+      <span class="m-cal">Jan '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>ML Engineer Joins — AI API Evaluation & Tier-2 Inventory Launch</h3>
+      <div class="tag-row">
+        <span class="tag tag-ai">AI API evaluation begins</span>
+        <span class="tag tag-tech">ML engineer onboarded</span>
+        <span class="tag tag-prod">Caps + joggers + notebooks</span>
+        <span class="tag tag-prod">Tier-2 inventory received</span>
+        <span class="tag tag-mkt">Post-holiday steady spend</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Senior ML Engineer onboarded (250,000–300,000 DZD/month, 6-month contract)</li>
+          <li>AI API evaluation begins (25,000 DZD test budget): Nano Banana, Ideogram, Recraft, Stability AI tested</li>
+          <li>Evaluation criteria: image generation quality, Arabic text accuracy, transparent background support, cost per generation, latency</li>
+          <li>500 test credits (Nano Banana) covered by incubator</li>
+          <li>Prompt engineering microservice design begins: Claude Haiku / GPT-4o-mini for print-optimised prompt reformulation</li>
+          <li>Mobile app: Android QA preparation begins; performance optimization for low-end devices</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Caps (500 units), jogger pants (500 units), notebooks (200 units) added to live catalogue</li>
+          <li>Tier-2 inventory received: 752,500 DZD restocking (hoodies, caps, joggers)</li>
+          <li>Sublimation press sleeve consumables stocked (6 units, 3,200 DZD each)</li>
+          <li>Post-holiday January is quieter — team uses capacity for training and process refinement</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Catalogue Milestone</strong>
+          Full apparel line now live: t-shirts, hoodies, caps, jogger pants, tote bags, notebooks all available for customization.
+        </div>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>Post-holiday January — steady spend on Meta + TikTok (no major campaign)</li>
+          <li>New product launch content: jogger pants, caps, notebooks — organic posts + stories</li>
+          <li>Designer acquisition: monthly payout data now available — used in recruitment pitch</li>
+          <li>Retargeting: target previous buyers with new catalogue additions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">850</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">753,100</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−3,044,306</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M8 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">08</span>
+      <span class="m-cal">Feb '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>Ramadan Collection — AI API Selected & Android Submitted for QA</h3>
+      <div class="tag-row">
+        <span class="tag tag-ai">AI API selected</span>
+        <span class="tag tag-ai">Rembg + segmentation integrated</span>
+        <span class="tag tag-tech">Android QA submitted</span>
+        <span class="tag tag-prod">Mugs & phone cases live</span>
+        <span class="tag tag-mkt">Ramadan campaign</span>
+        <span class="tag tag-kpi">1,550 orders/month</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & AI</div>
+        </div>
+        <ul>
+          <li>Primary AI API selected based on evaluation results (quality + Arabic text + cost)</li>
+          <li>Rembg self-hosted background removal microservice integrated into editor</li>
+          <li>OpenCV contour segmentation → Fabric.js object layers: each element becomes a moveable canvas layer</li>
+          <li>Prompt engineering microservice live: short user input → print-optimised detailed prompt</li>
+          <li>Android app submitted to QA engineer for real-device testing</li>
+          <li>QA/DevOps freelance engineer contract begins</li>
+          <li>iOS real device testing preparation begins</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Mugs (300 units, 15oz ceramic) and phone cases (500 units, sublimation-ready) launched — sublimation pressing workflow live</li>
+          <li>Sublimation consumables stocked: mug-press silicone wraps (6 units), heat-resistant gloves (12 pairs)</li>
+          <li>Sublimation film budget activated: 300 mugs × 57 DZD + 500 phone cases × 35 DZD = 34,600 DZD from film budget</li>
+          <li>Second inventory restocking: 432,000 DZD (mugs, phone cases, sublimation consumables)</li>
+          <li>Capacity: ~2,000 orders/month sustainable with current 3 operators</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Ramadan Campaign</div>
+        </div>
+        <ul>
+          <li>Ramadan campaign (~early Feb – early Mar 2027): influencer activation 200,000 DZD + seasonal budget 150,000 DZD</li>
+          <li>AI-assisted calligraphy designs: Arabic script, Islamic geometric patterns — promoted as hero feature</li>
+          <li>Gifting angle: family gifts, spiritual collections, personalized items</li>
+          <li>Mugs and phone cases featured as Ramadan gift items</li>
+          <li>Night/evening ad scheduling optimized for Ramadan viewing patterns</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Campaign: Ramadan</strong>
+          ~Feb – Mar 2027. Budget: 350,000 DZD. AI calligraphy designs as hero content. Gifting-focused messaging.
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">1,550</div><div class="fc-lbl">D2C Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">1,373,300</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−2,579,284</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M9 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">09</span>
+      <span class="m-cal">Mar '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>🚀 AI Design Feature Live — Android Launch — B2B Catalogue Opens</h3>
+      <div class="tag-row">
+        <span class="tag tag-ai">AI design feature live</span>
+        <span class="tag tag-tech">Android live on Play Store</span>
+        <span class="tag tag-b2b">B2B catalogue live</span>
+        <span class="tag tag-mkt">Aïd El-Fitr campaign</span>
+        <span class="tag tag-kpi">2,150 + 3 B2B orders</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & AI</div>
+        </div>
+        <ul>
+          <li>AI design feature LIVE: full 5-stage pipeline operational (prompt engineering → image generation → background removal → segmentation → editor delivery)</li>
+          <li>Rate limiting + credit monitoring active on AI API to control costs (~5,400 DZD/month at scale)</li>
+          <li>Android app live on Google Play Store</li>
+          <li>Push notifications via FCM (Firebase Cloud Messaging) live</li>
+          <li>Firebase Analytics in-app tracking active</li>
+          <li>iOS QA testing begins on real devices</li>
+          <li>B2B portal backend: business account creation, bulk order management</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>AI Pipeline: 5 Stages</strong>
+          (1) Prompt Engineering → (2) Image Generation API → (3) Rembg background removal → (4) OpenCV segmentation → (5) Fabric.js layered editor delivery at 300 DPI.
+        </div>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>B2B catalogue live: banners (roll-up stands), business cards, flyers, stickers — all outsourced print</li>
+          <li>B2B first orders: 3 orders expected at 110,000 DZD AOV = 330,000 DZD revenue</li>
+          <li>B2B lead time: 72h (print) + delivery to client</li>
+          <li>Working capital restock: 1,001,500 DZD — full inventory refresh for Aïd El-Fitr demand surge</li>
+          <li>Capacity: 2,500+ orders/month, 5 operators (2 new part-time hired)</li>
+          <li>Riglo Design Competition announced: 100,000 DZD prize + marketing exposure</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Aïd El-Fitr</div>
+        </div>
+        <ul>
+          <li>Aïd El-Fitr campaign (~early Mar 2027): influencer 250,000 DZD + seasonal 150,000 DZD = 400,000 DZD total</li>
+          <li>"Gift a personalised tee" hero mechanic — gifting bundles promoted</li>
+          <li>B2B launch push: reach local businesses, event organizers, student associations</li>
+          <li>Android app launch promoted: download CTAs in all ads and organic content</li>
+          <li>AI design feature showcase: hero content demonstrating AI calligraphy generation</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Campaign: Aïd El-Fitr + B2B Launch</strong>
+          ~Mar 2027. Budget: 400,000 DZD. "Gift a personalised tee" mechanic. B2B catalogue goes live simultaneously.
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">2,150 + 3 B2B</div><div class="fc-lbl">Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">2,036,900</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−1,450,662</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M10 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">10</span>
+      <span class="m-cal">Apr '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>Android Stable — iOS App Store Submission — Jogger Pants Full Rotation</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">Android v1 stable</span>
+        <span class="tag tag-tech">iOS submitted to App Store</span>
+        <span class="tag tag-prod">3,500+ order/month capacity</span>
+        <span class="tag tag-b2b">5 B2B orders</span>
+        <span class="tag tag-mkt">Steady multi-channel</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>Android v1.0 declared stable after QA feedback cycles — crash rate <1%</li>
+          <li>iOS app submitted to Apple App Store for review (7–14 day review window expected)</li>
+          <li>App Store listing optimized: screenshots, keywords, description in Arabic + French + English</li>
+          <li>AI feature: rate limiting tuned based on Month 9 usage data</li>
+          <li>AI API cost tracking: on track at ~5,400 DZD/month for 2,000 generations/month</li>
+          <li>Dataset curation plan for Phase 5 AI model: tagging methodology designed</li>
+          <li>B2B portal UX tested with first 3 real clients</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Jogger pants in full production rotation — all apparel products now fully operational</li>
+          <li>3,500+ orders/month capacity validated with current team and equipment</li>
+          <li>Post-Aïd demand stabilizes; focus on maintaining SLA targets</li>
+          <li>5 B2B orders fulfilled: banners, business cards, flyers</li>
+          <li>B2B client satisfaction surveyed; fulfillment time 72h achieved</li>
+          <li>Second regional fulfillment partner discussions begin</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing & Acquisition</div>
+        </div>
+        <ul>
+          <li>Steady Meta Ads + TikTok Ads + organic spend — no major campaign this month</li>
+          <li>Android app: App Store Optimization (ASO) monitoring; user reviews encouraged</li>
+          <li>Jogger pants launch content: styling lookbooks, influencer micro-content</li>
+          <li>B2B: follow-up on Aïd El-Fitr leads — proposal templates sent to interested businesses</li>
+          <li>Retargeting: post-Aïd purchasers re-engaged with new catalogue items</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">1,350 + 5 B2B</div><div class="fc-lbl">Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">1,416,100</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−942,840</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M11 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">11</span>
+      <span class="m-cal">May '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>iOS Live — Aïd El-Adha Campaign — Second Fulfillment Partner Signed</h3>
+      <div class="tag-row">
+        <span class="tag tag-tech">iOS live on App Store</span>
+        <span class="tag tag-tech">B2B portal live</span>
+        <span class="tag tag-mkt">Aïd El-Adha campaign</span>
+        <span class="tag tag-prod">Regional partner signed</span>
+        <span class="tag tag-b2b">6 B2B orders</span>
+        <span class="tag tag-kpi">1,750 orders/month</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & IT</div>
+        </div>
+        <ul>
+          <li>iOS app live on Apple App Store</li>
+          <li>B2B portal fully live: business account creation, bulk order management, invoice generation</li>
+          <li>Full platform/mobile parity nearly achieved: web editor features synced to mobile</li>
+          <li>Dataset curation for Phase 5 AI model begins: tagging Algerian calligraphy, streetwear, event merch designs</li>
+          <li>Push notifications optimized for both Android and iOS</li>
+          <li>App analytics review: funnel drop-off analysis for mobile conversion optimization</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>Second regional fulfillment partner signed — enables faster delivery to eastern and western Algeria</li>
+          <li>Aïd El-Adha demand surge prepared: gifting bundle inventory stocked</li>
+          <li>Mugs, tote bags, apparel — all in peak production rotation</li>
+          <li>6 B2B orders fulfilled (banners, corporate merch packages)</li>
+          <li>Operating margin improving — monthly gross profit consistently exceeds opex</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Aïd El-Adha</div>
+        </div>
+        <ul>
+          <li>Aïd El-Adha campaign (~mid-May 2027): influencer activation 200,000 DZD + seasonal budget 100,000 DZD = 300,000 DZD</li>
+          <li>Gifting bundles: mugs, tote bags, personalised apparel sets</li>
+          <li>iOS launch promoted: download CTAs across all channels</li>
+          <li>Riglo Design Competition results published: 100,000 DZD prize awarded; winners featured in campaign</li>
+          <li>Creator Fund announcement: top 10 designers to receive monthly stipend in Year 2</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Campaign: Aïd El-Adha</strong>
+          ~May 2027. Budget: 300,000 DZD. Gifting bundles: mugs, totes, apparel. iOS app launch tie-in.
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">1,750 + 6 B2B</div><div class="fc-lbl">Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">1,814,500</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val negative">−36,618</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M12 -->
+<div class="month-card">
+  <div class="month-header" onclick="toggle(this)">
+    <div class="month-num">
+      <span class="m-label">Month</span>
+      <span class="m-number">12</span>
+      <span class="m-cal">Jun '27</span>
+    </div>
+    <div class="month-summary">
+      <h3>✅ Break-Even Achieved — Full Platform/Mobile Parity — Phase 5 Dataset Curation</h3>
+      <div class="tag-row">
+        <span class="tag tag-kpi">EBITDA-positive</span>
+        <span class="tag tag-tech">Full parity achieved</span>
+        <span class="tag tag-ai">Phase 5 dataset curation</span>
+        <span class="tag tag-prod">All pressing tech stable</span>
+        <span class="tag tag-mkt">Anniversary campaign</span>
+        <span class="tag tag-b2b">6 B2B orders</span>
+      </div>
+    </div>
+    <button class="toggle-btn" aria-label="Expand">▾</button>
+  </div>
+  <div class="month-detail">
+    <div class="detail-grid">
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-tech">💻</div>
+          <div class="detail-col-title">Technology & AI</div>
+        </div>
+        <ul>
+          <li>Full platform/mobile parity achieved: every web editor feature available on iOS + Android</li>
+          <li>Phase 5 dataset curation actively building: 10,000–50,000 design images tagged (Algerian calligraphy, streetwear, event merch, minimal styles)</li>
+          <li>Year 2 infrastructure planning: Google Cloud Run migration design for 35K-user scale</li>
+          <li>Redis caching layer design for Year 2</li>
+          <li>AI API evaluation summary completed: documented results for Year 2 model selection decision</li>
+          <li>All tech subscriptions renewed for Year 2</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-prod">🏭</div>
+          <div class="detail-col-title">Production & Operations</div>
+        </div>
+        <ul>
+          <li>All heat pressing technology stable: pneumatic, cap, mug, flat presses all operational</li>
+          <li>EBITDA-positive month: first month gross profit significantly exceeds monthly opex</li>
+          <li>Cumulative break-even achieved: +1,011,564 DZD cumulative position</li>
+          <li>6 B2B orders fulfilled — B2B becoming a reliable revenue stream</li>
+          <li>Production capacity: ~4,500 orders/month (6 operators, 2 shifts planned for Year 2)</li>
+          <li>Year 2 hiring plan finalized: 3 additional operators, dedicated B2B sales role</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <div class="detail-col-header">
+          <div class="detail-col-icon icon-mkt">📣</div>
+          <div class="detail-col-title">Marketing — Anniversary</div>
+        </div>
+        <ul>
+          <li>Riglo 1st anniversary campaign: 20 months since Oct 2024 launch</li>
+          <li>Graduation season push: custom graduation tees, mugs, photo books</li>
+          <li>End-of-year lookback content: growth story, community spotlight</li>
+          <li>100 designers active on marketplace — milestone celebrated publicly</li>
+          <li>Year 2 roadmap teaser: proprietary AI model, production automation — build anticipation</li>
+        </ul>
+        <div class="highlight-item">
+          <strong>Year 1 Complete</strong>
+          Cumulative break-even: +1,011,564 DZD. 8,300 customers. Full platform, iOS + Android apps, AI design feature, B2B catalogue, 100 marketplace designers — all live.
+        </div>
+      </div>
+    </div>
+    <div class="fin-row">
+      <div class="fin-cell"><div class="fc-val">1,910 + 6 B2B</div><div class="fc-lbl">Orders</div></div>
+      <div class="fin-cell"><div class="fc-val">1,956,460</div><div class="fc-lbl">Gross Profit (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val">908,278</div><div class="fc-lbl">Monthly Opex (DZD)</div></div>
+      <div class="fin-cell"><div class="fc-val positive">+1,011,564</div><div class="fc-lbl">Cumulative (DZD)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CUMULATIVE SUMMARY -->
+<div class="cumulative-bar">
+  <div class="cum-item">
+    <div class="cv">30.8M</div>
+    <div class="cl">Year 1 Revenue (DZD)</div>
+  </div>
+  <div class="cum-item">
+    <div class="cv">8,300</div>
+    <div class="cl">Total Customers</div>
+  </div>
+  <div class="cum-item">
+    <div class="cv">12,470</div>
+    <div class="cl">Total D2C + B2B Orders</div>
+  </div>
+  <div class="cum-item">
+    <div class="cv">100</div>
+    <div class="cl">Marketplace Designers</div>
+  </div>
+  <div class="cum-item">
+    <div class="cv">2</div>
+    <div class="cl">Mobile Apps Launched</div>
+  </div>
+  <div class="cum-item">
+    <div class="cv">+1.0M</div>
+    <div class="cl">Cumulative EBITDA (DZD)</div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div style="margin-bottom:6px; color: rgba(244,245,219,0.65);">
+    <strong style="color:var(--gold)">RIGLO</strong> · Three-Year Growth Plan · Year 1 Roadmap · Expected Scenario
+  </div>
+  <div>
+    <a href="https://riglo.net">riglo.net</a> &nbsp;·&nbsp; 
+    Prepared by RIGLO for Investor Review &nbsp;·&nbsp; 
+    Version 2.0 · June 2026
+  </div>
+</footer>
+
+<script>
+  function toggle(headerEl) {
+    const card = headerEl.closest('.month-card');
+    const detail = card.querySelector('.month-detail');
+    const btn = card.querySelector('.toggle-btn');
+    const isOpen = detail.classList.contains('open');
+    detail.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+
+  // Open M1 by default
+  document.querySelector('.month-card .month-header').click();
+</script>
+
+</body>
+</html>
